@@ -218,11 +218,9 @@ function App() {
     <main className="app-shell">
       <section className="panel">
         <div className="brand-row">
-          <div className="mark" aria-hidden="true">
-            FR
-          </div>
+          <img className="brand-logo" src="/logo-mk.svg" alt="MK Toys e Antique" />
           <div>
-            <h1>Fretes em massa</h1>
+            <h1>Fretes MK Toys</h1>
             <p>Calcule PAC, Loggi e Jadlog pelo Melhor Envio.</p>
           </div>
         </div>
@@ -233,7 +231,7 @@ function App() {
             value={originCep}
             onChange={(event) => setOriginCep(event.target.value)}
             inputMode="numeric"
-            placeholder="02461011"
+            placeholder="00000000"
             maxLength={9}
           />
         </label>

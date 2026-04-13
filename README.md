@@ -1,4 +1,4 @@
-# Fretes em Massa MK Toys
+# Fretes em Massa para Leiloes
 
 Ferramenta para calcular fretes em massa a partir de uma planilha e enviar emails para os compradores.
 

@@ -218,7 +218,7 @@ function App() {
     <main className="app-shell">
       <section className="panel">
         <div className="brand-row">
-          <img className="brand-logo" src="/logo-mk.svg" alt="MK Toys e Antique" />
+          <img className="brand-logo" src="/logo-mk.png" alt="MK Toys e Antique" />
           <div>
             <h1>Fretes MK Toys</h1>
             <p>Calcule PAC, Loggi e Jadlog pelo Melhor Envio.</p>

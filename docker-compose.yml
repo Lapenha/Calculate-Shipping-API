@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: calculate-freight-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: calculate_freight
+      POSTGRES_USER: calculate_freight
+      POSTGRES_PASSWORD: calculate_freight
+    ports:
+      - "5432:5432"
+    volumes:
+      - calculate_freight_pgdata:/var/lib/postgresql/data
+
+volumes:
+  calculate_freight_pgdata:

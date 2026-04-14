@@ -12,6 +12,10 @@ Ferramenta para calcular fretes em massa a partir de uma planilha e enviar email
 - Envio de emails pelo Gmail com as opcoes de frete
 - Intervalo configuravel entre emails para reduzir risco de bloqueio do Gmail
 - Frontend simples em React com drag and drop
+- Login com JWT
+- Postgres local via Docker para usuarios e descadastros
+- Tela de email marketing com imagem de capa, lista de emails e logs
+- Envio de email marketing pela Brevo ou pelo Gmail
 
 ## Estrutura
 
@@ -51,10 +55,35 @@ Preencha no `.env`:
 - `SMTP_PASS`
 - `EMAIL_FROM`
 - `EMAIL_SEND_DELAY_MS`
+- `MARKETING_EMAIL_SEND_DELAY_MS`
+- `MARKETING_PROVIDER`, use `brevo` para marketing pela Brevo ou `gmail` para SMTP
+- `BREVO_API_KEY`
+- `BREVO_SENDER_EMAIL`
+- `BREVO_REPLY_TO_EMAIL`
+- `DATABASE_URL`
+- `JWT_SECRET`
+- `ADMIN_EMAIL`
+- `ADMIN_PASSWORD`
 
 Para Gmail, `SMTP_PASS` deve ser uma senha de app, nao a senha normal da conta.
 
 O valor padrao de `EMAIL_SEND_DELAY_MS` e `5000`, ou seja, 5 segundos entre cada email.
+
+Para email marketing, o valor padrao de `MARKETING_EMAIL_SEND_DELAY_MS` e `8000`, ou seja, 8 segundos entre cada email.
+
+Quando `MARKETING_PROVIDER=brevo`, os emails de marketing saem pela Brevo. O remetente precisa estar validado na Brevo. Use `BREVO_REPLY_TO_EMAIL=mktoyseantique@gmail.com` para receber as respostas no Gmail da MK Toys.
+
+Os emails de frete continuam usando SMTP/Gmail para facilitar o acompanhamento das respostas dos compradores.
+
+## Banco local
+
+Suba o Postgres:
+
+```bash
+docker compose up -d
+```
+
+O backend cria as tabelas e o usuario admin automaticamente usando `ADMIN_EMAIL` e `ADMIN_PASSWORD`.
 
 ## Rodar localmente
 

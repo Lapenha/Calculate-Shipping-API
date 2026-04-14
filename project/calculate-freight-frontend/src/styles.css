@@ -23,6 +23,11 @@ input {
   letter-spacing: 0;
 }
 
+textarea {
+  font: inherit;
+  letter-spacing: 0;
+}
+
 .app-shell {
   align-items: center;
   background:
@@ -45,6 +50,21 @@ input {
   max-width: 680px;
   padding: 28px;
   width: 100%;
+}
+
+.app-panel {
+  max-width: 920px;
+}
+
+.login-panel {
+  max-width: 560px;
+}
+
+.app-header {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
 }
 
 .brand-row {
@@ -88,7 +108,8 @@ p {
   font-weight: 700;
 }
 
-.field input {
+.field input,
+.field textarea {
   background: #ffffff;
   border: 1px solid #c9b27a;
   border-radius: 8px;
@@ -99,7 +120,14 @@ p {
   width: 100%;
 }
 
-.field input:focus {
+.field textarea {
+  min-height: 130px;
+  padding: 14px;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
   border-color: #147b92;
   box-shadow: 0 0 0 3px rgba(20, 123, 146, 0.2);
 }
@@ -122,6 +150,10 @@ p {
     border-color 160ms ease,
     transform 160ms ease;
   width: 100%;
+}
+
+.drop-zone.compact {
+  min-height: 150px;
 }
 
 .drop-zone:hover,
@@ -166,7 +198,9 @@ p {
 }
 
 .primary,
-.secondary {
+.secondary,
+.ghost-button,
+.tool-tabs button {
   border: 0;
   border-radius: 8px;
   cursor: pointer;
@@ -185,8 +219,50 @@ p {
   color: #ffffff;
 }
 
+.ghost-button {
+  background: #efe4bd;
+  color: #071126;
+  min-height: 42px;
+}
+
+.tool-tabs {
+  background: #071126;
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+  padding: 8px;
+}
+
+.tool-tabs button {
+  background: transparent;
+  color: #d9b657;
+  min-height: 44px;
+}
+
+.tool-tabs button.active {
+  background: #147b92;
+  color: #ffffff;
+}
+
+.form-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 0.7fr 1.3fr;
+}
+
+.warning-box {
+  background: #fff8df;
+  border: 1px solid #d8c187;
+  border-left: 4px solid #d02d2d;
+  border-radius: 8px;
+  color: #2b261b;
+  padding: 12px 14px;
+}
+
 .primary:disabled,
-.secondary:disabled {
+.secondary:disabled,
+.tool-tabs button:disabled {
   background: #d6cfbd;
   color: #786f60;
   cursor: not-allowed;
@@ -304,6 +380,16 @@ p {
   }
 
   .actions {
+    grid-template-columns: 1fr;
+  }
+
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .tool-tabs,
+  .form-grid {
     grid-template-columns: 1fr;
   }
 

@@ -53,7 +53,7 @@ function buildEmailHtml(row: FreightEmailRow) {
             <table role="presentation" width="640" cellspacing="0" cellpadding="0" style="max-width:640px;width:100%;background:#ffffff;border-radius:8px;overflow:hidden;border:1px solid #dfe6ee;">
               <tr>
                 <td align="center" style="background:#19395f;padding:24px 16px;">
-                  <img src="https://i.imgur.com/bnQf4WJ.png" alt="MK Toys e Antique" width="112" style="display:block;border:0;max-width:112px;">
+                  <div style="font-size:22px;line-height:1.2;font-weight:800;color:#f1d25f;">MK Toys e Antique</div>
                 </td>
               </tr>
               <tr>

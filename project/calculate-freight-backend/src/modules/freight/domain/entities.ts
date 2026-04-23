@@ -2,7 +2,9 @@ export interface Client {
   cartela: number
   nome: string
   email: string
+  endereco: string
   cepDestino: string
+  valorDeclarado: number
 }
 
 export interface PackageMeasure {
@@ -17,6 +19,8 @@ export interface FreightResult {
   cartela: number
   nome: string
   email: string
+  endereco: string
+  cepDestino: string
   medidas: string
   pesoKg: number
   leilao: string
@@ -35,6 +39,7 @@ export interface PacFreightInput {
   larguraCm: number
   comprimentoCm: number
   pesoKg: number
+  valorDeclarado: number
 }
 
 export type JadlogFreightInput = PacFreightInput

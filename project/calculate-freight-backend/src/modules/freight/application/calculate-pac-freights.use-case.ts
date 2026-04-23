@@ -9,6 +9,8 @@ interface CalculatePacFreightsInput {
   measures: PackageMeasure[]
 }
 
+const PACKAGING_FEE_BRL = 5
+
 export class CalculatePacFreightsUseCase {
   constructor(private readonly freightCalculator: FreightCalculator) {}
 
@@ -18,6 +20,27 @@ export class CalculatePacFreightsUseCase {
     } catch (error) {
       return error instanceof Error ? error.message : 'Frete indisponivel'
     }
+  }
+
+  private addPackagingFee(value: string): string {
+    if (!value) return value
+
+    const match = value.match(/R\$\s*([\d.,]+)/)
+    if (!match) {
+      return value
+    }
+
+    const amount = Number(match[1].replace(/\./g, '').replace(',', '.'))
+    if (Number.isNaN(amount)) {
+      return value
+    }
+
+    const updated = (amount + PACKAGING_FEE_BRL).toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    })
+
+    return value.replace(match[0], updated)
   }
 
   async execute(input: CalculatePacFreightsInput): Promise<FreightResult[]> {
@@ -37,6 +60,7 @@ export class CalculatePacFreightsUseCase {
         larguraCm: measure.larguraCm,
         comprimentoCm: measure.comprimentoCm,
         pesoKg: measure.pesoKg,
+        valorDeclarado: client.valorDeclarado,
       }
 
       const [fretePac, prazoPac, freteLoggi, prazoLoggi, freteJadlog, prazoJadlog] = await Promise.all([
@@ -52,14 +76,16 @@ export class CalculatePacFreightsUseCase {
         cartela: client.cartela,
         nome: client.nome,
         email: client.email,
+        endereco: client.endereco,
+        cepDestino: client.cepDestino,
         medidas: `${measure.alturaCm}x${measure.larguraCm}x${measure.comprimentoCm}`,
         pesoKg: measure.pesoKg,
         leilao: input.leilao || '',
-        fretePac,
+        fretePac: this.addPackagingFee(fretePac),
         prazoPac,
-        freteLoggi,
+        freteLoggi: this.addPackagingFee(freteLoggi),
         prazoLoggi,
-        freteJadlog,
+        freteJadlog: this.addPackagingFee(freteJadlog),
         prazoJadlog,
       })
     }

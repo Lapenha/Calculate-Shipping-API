@@ -44,7 +44,7 @@ function normalize(value = '') {
 function formatPrice(value?: string) {
   if (!value) return null
 
-  const amount = Number(String(value).replace(',', '.'))
+  const amount = Number(String(value).replace(/\.(?=\d{3}(?:\D|$))/g, '').replace(',', '.'))
   if (Number.isNaN(amount)) return value
 
   return amount.toLocaleString('pt-BR', {
@@ -55,6 +55,10 @@ function formatPrice(value?: string) {
 
 export class MelhorEnvioCalculator implements FreightCalculator {
   private readonly cache = new Map<string, Promise<MelhorEnvioQuote[]>>()
+
+  private getDeclaredValue(input: PacFreightInput): number {
+    return input.valorDeclarado > 0 ? input.valorDeclarado : env.melhorEnvioInsuranceValue
+  }
 
   getPacFreight(input: PacFreightInput): Promise<string> {
     return this.getFreight('pac', input)
@@ -157,15 +161,15 @@ export class MelhorEnvioCalculator implements FreightCalculator {
             height: input.alturaCm,
             length: input.comprimentoCm,
             weight: input.pesoKg,
-            insurance_value: env.melhorEnvioInsuranceValue,
+            insurance_value: this.getDeclaredValue(input),
             quantity: 1,
           },
         ],
         options: {
           receipt: false,
           own_hand: false,
-          insurance_value: env.melhorEnvioInsuranceValue,
-          use_insurance_value: false,
+          insurance_value: this.getDeclaredValue(input),
+          use_insurance_value: this.getDeclaredValue(input) > 0,
         },
       }),
     })

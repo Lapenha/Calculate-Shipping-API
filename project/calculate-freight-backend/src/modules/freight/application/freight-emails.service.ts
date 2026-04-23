@@ -10,6 +10,8 @@ interface FreightEmailRow {
   cartela: number
   nome: string
   email: string
+  endereco: string
+  cepDestino: string
   medidas: string
   pesoKg: number
   leilao: string
@@ -59,7 +61,8 @@ function buildEmailHtml(row: FreightEmailRow) {
               <tr>
                 <td style="padding:26px 28px 10px;">
                   <h1 style="margin:0 0 10px;font-size:24px;line-height:1.25;color:#102033;">${escapeHtml(title)}</h1>
-                  <p style="margin:0;font-size:15px;line-height:1.5;color:#526070;">Ola, ${escapeHtml(row.nome)}. Seguem as opcoes de frete disponiveis para a sua cartela.</p>
+                  <p style="margin:0;font-size:15px;line-height:1.5;color:#526070;">Ola, ${escapeHtml(row.nome)}.</p>
+                  <p style="margin:10px 0 0;font-size:15px;line-height:1.5;color:#526070;">Apos, seguem as opcoes de fretes disponiveis para a sua cartela.</p>
                 </td>
               </tr>
               <tr>
@@ -69,6 +72,18 @@ function buildEmailHtml(row: FreightEmailRow) {
                       <td style="padding:14px 16px;font-size:15px;"><strong>Cartela:</strong> ${escapeHtml(row.cartela)}</td>
                       <td style="padding:14px 16px;font-size:15px;"><strong>Medidas:</strong> ${escapeHtml(row.medidas)} cm</td>
                       <td style="padding:14px 16px;font-size:15px;"><strong>Peso:</strong> ${escapeHtml(row.pesoKg)} kg</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:0 28px 18px;">
+                  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f8fafc;border:1px solid #dfe6ee;border-radius:8px;">
+                    <tr>
+                      <td style="padding:14px 16px;font-size:14px;line-height:1.5;color:#1f2933;">
+                        <strong>Endereco para conferencia:</strong> ${escapeHtml(row.endereco || 'Nao informado')}<br>
+                        <strong>CEP:</strong> ${escapeHtml(row.cepDestino)}
+                      </td>
                     </tr>
                   </table>
                 </td>
